@@ -1,0 +1,10 @@
+<header id="top-header">
+    <h1>NFT Minting App</h1>
+    <div id="tools">
+        <% if (locals.walletConnected) { %>
+            <a title="Welcome" href="/account/">Welcome <%= locals.walletAddress %></a>
+            <% } else { %> <a title="Click to connect your wallet" href="/wallet/connect">Connect Wallet</a>
+                <% } %>
+
+    </div>
+</header>

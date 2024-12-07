@@ -1,7 +1,7 @@
 {
-  "name": "cse340",
+  "name": "wdd330",
   "version": "1.0.0",
-  "description": "Starter project for CSE 340",
+  "description": "NFT Minting Application project for WDD 330",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -11,7 +11,9 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.0.3",
+    "ejs": "^3.1.10",
     "express": "^4.18.2",
+    "express-ejs-layouts": "^2.5.1",
     "pg": "^8.8.0"
   },
   "devDependencies": {
