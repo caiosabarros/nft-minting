@@ -1,8 +1,8 @@
 <%# The index view is the "body" that will be supplied to the layout. %>
-    <div class="grid">
-        <!--Layout wireframe will be:
+    <!--Layout wireframe will be:
+            - Header: NFT Minting App  Connect Wallet
+            - Navigation: Home About 
             - Home:
-             - Navigation: Home About ConnectWallet
              - Welcome message
              - Images sequentially being displayed | Features listed  
              - Mint button (trigger connect wallet "modal(w3)" if not connected)
@@ -10,67 +10,41 @@
              - Team: Caio Sa
              - About: Project WDD330
         -->
-
-        <!--first row-->
-        <h1 id="welcome">Welcome to Caio Sa's NFT Collection</h1>
-        <!--second row-->
-        <div class="ad">
-            <div class="card">
-                <h2>DMC Delorean</h2>
+    <div id="home" class="grid">
+        <h1 id="welcome">Welcome to RNC: Random NFT Collection</h1>
+        <div class="feature-list">
+            <!--animation-->
+            <img alt="nft random images sample animation" src="/images/site/own_today.png">
+            <!--feature-->
+            <div class="features">
+                <h2>RNC Collection</h2>
                 <ul>
-                    <li>3 Cup holders</li>
-                    <li>Superman doors</li>
-                    <li>Fuzzy dice!</li>
+                    <li>Awesome RGI: Random Generated Images</li>
+                    <li>Images Stored on IPFS, forever!</li>
+                    <li>Mint Permissionless, for free!</li>
                 </ul>
-                <a href="#"><img alt="buy car" src="/images/site/own_today.png"></a>
             </div>
         </div>
-
-        <!--third row-->
-        <h1 id="reviews">DMC Delorean Reviews</h1>
-        <!--fourth row-->
-        <div class="list-grid">
-            <!--bullet points come here-->
-            <ul>
-                <li>"So fast it's almost tranveling in time" (4/5)</li>
-                <li>"Coolest ride on the road." (4/5)</li>
-                <li>"I'm feeling McFly!" (5/5)</li>
-                <li>"The most futuristic ride of our day." (4.5/5)</li>
-                <li>"80's livin and I love it!" (5/5)</li>
-            </ul>
-        </div>
-        <!--third row, second column-->
-        <h1 id="upgrades">Delorean Upgrades</h1>
-        <!--fourth row, second column-->
-        <div class="inner-grid">
-            <!--images come here-->
-            <div>
-                <div><img src="/images/upgrades/flux-cap.png" alt="Flux Capacitor">
-                </div>
-                <a href="#">
-                    <p>Flux Capacitor</p>
-                </a>
-            </div>
-            <div>
-                <div><img src="/images/upgrades/flame.jpg" alt="Flame Decals">
-                </div>
-                <a href="#">
-                    <p>Flame Decals</p>
-                </a>
-            </div>
-            <div>
-                <div><img src="/images/upgrades/bumper_sticker.jpg" alt="Bumper Stickers">
-                </div>
-                <a href="#">
-                    <p>Bumper Stickers</p>
-                </a>
-            </div>
-            <div>
-                <div><img src="/images/upgrades/hub-cap.jpg" alt="Hub Caps">
-                </div>
-                <a href="#">
-                    <p>Hub Caps</p>
-                </a>
+        <!--
+        mintNFT will check whether the wallet connection has been made.
+        If not, throw modal for the user to connect their wallet.
+        -->
+        <button onclick="mintNFT()">MINT NOW!</button>
+    </div>
+    <div id="about">
+        <h1 id="reviews">About</h1>
+        <h2>Meet Out Team</h2>
+        <div class="team-list">
+            <img alt="project owner" src="/images/site/own_today.png">
+            <!--feature-->
+            <div class="adjectives">
+                <h2>WDD 330 Student</h2>
+                <ul>
+                    <li>Brazilian</li>
+                    <li>24 Years</li>
+                    <li>WDD 330 Student</li>
+                    <li>Blockchain enthusiast</li>
+                </ul>
             </div>
         </div>
     </div>

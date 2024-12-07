@@ -13,7 +13,9 @@ header {
 
 nav {
   background-color: yellow;
+  display: flex;
 }
+
 
 main {
   background-color: blue;
