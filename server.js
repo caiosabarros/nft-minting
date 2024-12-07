@@ -9,13 +9,36 @@ const express = require("express")
 const env = require("dotenv").config()
 const path = require("path");
 const app = express()
+const session = require("express-session")
 const static = require("./routes/static")
 const expressLayouts = require("express-ejs-layouts")
+const walletRoute = require("./routes/walletRoute")
+const utilities = require("./utilities/index")
+
+/* ***********************
+  * Middleware
+  * ************************/
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  name: 'nameId',
+  cookie: { secure: false } // TODO: set true when using Netlifly
+}))
+
+app.use(static)
+
+app.use(utilities.connectMetamask)
 
 /* ***********************
  * Routes
  *************************/
-app.use(static)
+
+app.get("/", (req, res) => {
+  res.render("index"); // This renders the "views/index.ejs" file
+});
+
+app.get("/wallet", walletRoute);
 
 /* ***********************
  * Local Server Information
@@ -30,10 +53,7 @@ app.set("view engine", "ejs"); // Set EJS as the default template engine
 app.use(expressLayouts)
 app.set("layout", "./layouts/layout") // not at views root
 
-// Route for the home page
-app.get("/", (req, res) => {
-  res.render("index"); // This renders the "views/index.ejs" file
-});
+
 
 /* ***********************
  * Log statement to confirm server operation
