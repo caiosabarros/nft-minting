@@ -14,9 +14,44 @@ header {
 nav {
   background-color: yellow;
   display: flex;
+  justify-content: space-around;
 }
-
 
 main {
   background-color: blue;
+}
+
+#home {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr 2fr 1fr;
+}
+
+.main-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+#about {
+  height: 95vh;
+  display: grid;
+  grid-template-rows: 1fr 4fr;
+}
+
+.team-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+
+
+
+
+
+
+#welcome {
+  text-align: center;
+  border: 5px solid black;
 }
