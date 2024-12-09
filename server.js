@@ -11,6 +11,7 @@ const path = require("path");
 const app = express()
 const session = require("express-session")
 const static = require("./routes/static")
+const baseController = require("./controllers/baseController")
 const expressLayouts = require("express-ejs-layouts")
 const walletRoute = require("./routes/walletRoute")
 const utilities = require("./utilities/index")
@@ -34,11 +35,13 @@ app.use(utilities.connectMetamask)
  * Routes
  *************************/
 
-app.get("/", (req, res) => {
-  res.render("index"); // This renders the "views/index.ejs" file
+app.get("/", baseController.buildHome); // This renders the "views/index.ejs" file
+app.get("/test", (req, res) => {
+  res.render("index");  // No need to pass the layout since it's globally set
 });
-
 app.get("/wallet", walletRoute);
+
+
 
 /* ***********************
  * Local Server Information
@@ -48,12 +51,10 @@ const port = process.env.PORT
 const host = process.env.HOST
 
 // Set the views directory and template engine
-app.set("views", path.join(__dirname, "views")); // Specify the "views" folder
 app.set("view engine", "ejs"); // Set EJS as the default template engine
+app.set("views", path.join(__dirname, "views")); // Specify the "views" folder
 app.use(expressLayouts)
-app.set("layout", "./layouts/layout") // not at views root
-
-
+app.set("layout", "layouts/layout") // not at views root
 
 /* ***********************
  * Log statement to confirm server operation
