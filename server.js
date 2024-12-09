@@ -15,6 +15,7 @@ const baseController = require("./controllers/baseController")
 const expressLayouts = require("express-ejs-layouts")
 const walletRoute = require("./routes/walletRoute")
 const utilities = require("./utilities/index")
+const cookieParser = require("cookie-parser")
 
 /* ***********************
   * Middleware
@@ -24,12 +25,15 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   name: 'nameId',
-  cookie: { secure: false } // TODO: set true when using Netlifly
+  cookie: { secure: process.env.NODE_ENV == 'production' } // TODO: set true when using Netlifly
 }))
 
-app.use(static)
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.use(utilities.connectMetamask)
+app.use(static)
+app.use(cookieParser());
+app.use(utilities.checkMetamask)
 
 /* ***********************
  * Routes
@@ -37,9 +41,9 @@ app.use(utilities.connectMetamask)
 
 app.get("/", baseController.buildHome); // This renders the "views/index.ejs" file
 app.get("/test", (req, res) => {
-  res.render("index");  // No need to pass the layout since it's globally set
+  res.render("index");
 });
-app.get("/wallet", walletRoute);
+app.use("/wallet", walletRoute);
 
 
 

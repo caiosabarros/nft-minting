@@ -51,3 +51,70 @@
                     </div>
                 </div>
                 <%- include("partials/footer") %>
+                    <script>
+                        const connectWalletButton = document.querySelector("#wallet-connect")
+                        connectWalletButton.addEventListener("click", connectWallet)
+
+                        async function connectWallet() {
+                            try {
+                                // check the current status - if not connected, try connecting:
+                                const status = await fetch("/wallet/status")
+                                console.log("json", await status.json())
+
+                                // this may fail if there are multiple wallet extensions in the browser
+                                if (window.ethereum && !status.account) {
+                                    const accounts = await window.ethereum.request({
+                                        method: 'eth_requestAccounts'
+                                    })
+
+                                    console.log(accounts[0])
+
+                                    // get the connected account on the server
+                                    const response = await fetch("/wallet/connect", {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify({
+                                            walletAddress: accounts[0]
+                                        })
+                                    })
+
+                                    const result = await response.json()
+
+                                    console.log("result ", result)
+
+                                    // if it worked, update html
+                                    if (result.success) {
+                                        // update html
+                                        console.log("TODO update html")
+                                    }
+                                }
+                            } catch (err) {
+                                console.error('Failed connecting wallet ' + err)
+                            }
+                        }
+
+
+                        // const isWalletConnected = await checkWalletStatus()
+                        // if (!isWalletConnected) {
+                        //     const metamaskWallet = await fetch("/wallet/connect")
+                        //     try {
+                        //         await checkWalletStatus()
+                        //     } catch (err) {
+                        //         console.error(err)
+                        //     }
+                        // }
+
+                        // async function checkWalletStatus() {
+                        //     const response = await fetch("/wallet/status")
+                        //     if (response.connected && response.account) {
+                        //         const connectWalletButton = document.getElementById("connect-wallet")
+                        //         connectWalletButton.innerHTML = response.account
+                        //         return true
+                        //     }
+
+                        //     return false
+                        // }
+
+                    </script>
