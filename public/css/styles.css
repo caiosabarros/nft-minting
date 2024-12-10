@@ -45,10 +45,10 @@ main {
   grid-template-rows: 1fr;
 }
 
-
-
-
-
+.wallet {
+  margin: 20px 30px 60px 0;
+  background-color: green;
+}
 
 
 #welcome {

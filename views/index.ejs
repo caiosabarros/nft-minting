@@ -1,15 +1,4 @@
 <%# The index view is the "body" that will be supplied to the layout. %>
-    <!--Layout wireframe will be:
-            - Header: NFT Minting App  Connect Wallet
-            - Navigation: Home About 
-            - Home:
-             - Welcome message
-             - Images sequentially being displayed | Features listed  
-             - Mint button (trigger connect wallet "modal(w3)" if not connected)
-            - About:
-             - Team: Caio Sa
-             - About: Project WDD330
-        -->
     <%- include("partials/head") %>
         <%- include("partials/header") %>
             <%- include("partials/navigation") %>
@@ -28,10 +17,6 @@
                             </ul>
                         </div>
                     </div>
-                    <!--
-        mintNFT will check whether the wallet connection has been made.
-        If not, throw modal for the user to connect their wallet.
-        -->
                     <button type="button" onclick="mintNFT()">MINT NOW!</button>
                 </div>
                 <div id="about">
@@ -51,18 +36,24 @@
                     </div>
                 </div>
                 <%- include("partials/footer") %>
+                    <script src="../js/script.js"></script>
                     <script>
                         const connectWalletButton = document.querySelector("#wallet-connect")
                         connectWalletButton.addEventListener("click", connectWallet)
 
                         async function connectWallet() {
                             try {
+                                let hasWallet = false
+                                // check wether the user has metamask installed
+                                if (window?.ethereum?.isMetaMask) {
+                                    hasWallet = true
+                                }
                                 // check the current status - if not connected, try connecting:
                                 const status = await fetch("/wallet/status")
                                 console.log("json", await status.json())
 
                                 // this may fail if there are multiple wallet extensions in the browser
-                                if (window.ethereum && !status.account) {
+                                if (hasWallet && !status.account) { // connect
                                     const accounts = await window.ethereum.request({
                                         method: 'eth_requestAccounts'
                                     })
@@ -76,7 +67,8 @@
                                             'Content-Type': 'application/json'
                                         },
                                         body: JSON.stringify({
-                                            walletAddress: accounts[0]
+                                            walletAddress: accounts[0],
+
                                         })
                                     })
 
@@ -87,34 +79,36 @@
                                     // if it worked, update html
                                     if (result.success) {
                                         // update html
-                                        console.log("TODO update html")
+                                        connectWalletButton.textContent = result.walletAddress
+                                        connectWalletButton.style.border = '3px solid black'
+                                        // connectWalletButton.style.borderRadius = '20%'
+                                        // connectWalletButton.style.padding = '1%'
                                     }
+                                } else if (!hasWallet && !status.account) { // create
+                                    connectWalletButton.textContent = 'Create Random Wallet'
+                                    // handle case where the person doesn't have Metamask installed
+                                    const response = await fetch("/wallet/create", {
+                                        method: 'POST'
+                                    })
+
+                                    const result = await response.json()
+
+                                    console.log("result ", result)
+
+                                    // if it worked, update html
+                                    if (result.success) {
+                                        // update html
+                                        connectWalletButton.textContent = result.walletAddress
+                                        connectWalletButton.style.border = '3px solid black'
+                                        // create modal saying this is the user's wallet ...
+                                    }
+                                } else if (status.account) { // is this for reload?
+                                    connectWalletButton.textContent = result.walletAddress
+                                    connectWalletButton.style.border = '3px solid black'
                                 }
                             } catch (err) {
                                 console.error('Failed connecting wallet ' + err)
                             }
                         }
-
-
-                        // const isWalletConnected = await checkWalletStatus()
-                        // if (!isWalletConnected) {
-                        //     const metamaskWallet = await fetch("/wallet/connect")
-                        //     try {
-                        //         await checkWalletStatus()
-                        //     } catch (err) {
-                        //         console.error(err)
-                        //     }
-                        // }
-
-                        // async function checkWalletStatus() {
-                        //     const response = await fetch("/wallet/status")
-                        //     if (response.connected && response.account) {
-                        //         const connectWalletButton = document.getElementById("connect-wallet")
-                        //         connectWalletButton.innerHTML = response.account
-                        //         return true
-                        //     }
-
-                        //     return false
-                        // }
 
                     </script>

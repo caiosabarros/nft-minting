@@ -1,6 +1,5 @@
 // Needed Resources 
 const express = require("express")
-const ethers = require("ethers")
 const router = new express.Router()
 const utilities = require("../utilities")
 
@@ -14,28 +13,6 @@ router.get("/status", (req, res) => {
     })
 })
 
-router.post("/create", async (req, res) => {
-    try {
-        const account = ethers.Wallet.createRandom()
-        req.session.walletAddress = account.address
-        req.session.walletConnected = true
-
-        // set cookie
-        res.cookie('walletAddress', account.address, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV == 'production',
-            maxAge: 1 * 60 * 60 * 1000
-        })
-
-        return res.json({
-            success: true,
-            walletConnected: true,
-            walletAddress: account.address
-        })
-    } catch (error) {
-        console.error("error: " + error)
-    }
-})
 
 router.post("/connect", async (req, res) => {
     try {
