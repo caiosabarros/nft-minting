@@ -8,3 +8,17 @@ async function mintNFT() {
 
     // TODO: do modal thing here to display stuff. May be display in the place of the Mint Now button?
 }
+
+const img = document.querySelector(".main-list img")
+function handleData(data) {
+    img.setAttribute("src", data.url)
+}
+
+const apiURL = "https://random.imagecdn.app/v1/image?width=150&height=150&category=monkey&format=json"
+setInterval(() => {
+    fetch(apiURL)
+        .then(res => res.json())
+        .then(data => {
+            handleData(data);  // Pass the data to the handleData function
+        })
+}, 4000);
