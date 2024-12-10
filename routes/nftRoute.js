@@ -64,11 +64,20 @@ router.post("/create", async (req, res) => {
 
         const receipt = await transaction.wait()
 
-        // set cookie on the generated nft
+        // get the tokenURI (randomly generated json metadata stored on-chain)
+        const base64EncodedJSON = await signedSmartContract.tokenURI(nftId)
+        const encodedJSON = base64EncodedJSON.split(",")[1]
+        const decodedNft = JSON.parse(Buffer.from(encodedJSON, 'base64').toString('utf-8'))
 
+        // set cookie on the generated nft
+        res.cookie('nft', decodedNft, {
+            httpOnly: false, // we want get it in the browser and it doesn't contain sensitive information
+            secure: process.env.NODE_ENV == 'production',
+            maxAge: 1 * 60 * 60 * 1000
+        })
 
         // send receipt back
-        return res.json({ receipt })
+        return res.json({ transactionHash: receipt.transactionHash })
     } catch (error) {
         console.error(error.message);
         return error
