@@ -16,12 +16,11 @@ router.get("/status", (req, res) => {
 })
 
 router.post("/create", async (req, res) => {
-    // connect to the amoy blockchain
-    console.log("KEY", process.env.INFURA_API_KEY)
+    // connect to the blockchain
     const provider = new ethers.providers.JsonRpcProvider(process.env.INFURA_API_KEY)
     try {
         // call the api endpoint
-        const apiURL = "https://random.imagecdn.app/v1/image?width=150&height=150&category=monkey&format=json"
+        const apiURL = "https://random.imagecdn.app/v1/image?width=300&height=400&format=json"
         const randomImageResponse = await fetch(apiURL)
         if (!randomImageResponse.ok) {
             throw new Error(`Response status: ${randomImageResponse.status}`);
@@ -73,11 +72,11 @@ router.post("/create", async (req, res) => {
         res.cookie('nft', decodedNft, {
             httpOnly: false, // we want get it in the browser and it doesn't contain sensitive information
             secure: process.env.NODE_ENV == 'production',
-            maxAge: 1 * 60 * 60 * 1000
+            maxAge: 1 * 60 * 60 * 1000 // 1 hour
         })
 
         // send receipt back
-        return res.json({ transactionHash: receipt.transactionHash })
+        return res.json({ ...decodedNft, nftId, transactionHash: receipt.transactionHash })
     } catch (error) {
         console.error(error.message);
         return error
