@@ -14,8 +14,10 @@ const static = require("./routes/static")
 const baseController = require("./controllers/baseController")
 const expressLayouts = require("express-ejs-layouts")
 const walletRoute = require("./routes/walletRoute")
+const nftRoute = require("./routes/nftRoute")
 const utilities = require("./utilities/index")
 const cookieParser = require("cookie-parser")
+
 
 /* ***********************
   * Middleware
@@ -43,7 +45,8 @@ app.get("/", baseController.buildHome); // This renders the "views/index.ejs" fi
 app.get("/test", (req, res) => {
   res.render("index");
 });
-app.use("/wallet", walletRoute);
+app.use("/wallet", walletRoute)
+app.use("/nft", contractRoute)
 
 
 
