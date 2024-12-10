@@ -46,7 +46,7 @@ app.get("/test", (req, res) => {
   res.render("index");
 });
 app.use("/wallet", walletRoute)
-app.use("/nft", contractRoute)
+app.use("/nft", nftRoute)
 
 
 

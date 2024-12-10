@@ -18,13 +18,13 @@ router.get("/status", (req, res) => {
 router.post("/create", async (req, res) => {
     // connect to the amoy blockchain
     console.log("KEY", process.env.INFURA_API_KEY)
-    const provider = new ethers.providers.AlchemyProvider(process.env.AMOY_CHAIN_ID, process.env.INFURA_API_KEY)
+    const provider = new ethers.providers.JsonRpcProvider(process.env.INFURA_API_KEY)
     try {
         // call the api endpoint
         const apiURL = "https://random.imagecdn.app/v1/image?width=150&height=150&category=monkey&format=json"
         const randomImageResponse = await fetch(apiURL)
         if (!randomImageResponse.ok) {
-            throw new Error(`Response status: ${response.status}`);
+            throw new Error(`Response status: ${randomImageResponse.status}`);
         }
         /*
         JSON has the format:
@@ -39,7 +39,7 @@ router.post("/create", async (req, res) => {
             }
         }
         */
-        const json = await response.json();
+        const json = await randomImageResponse.json();
 
 
         // generate the tokenId randomly
@@ -52,19 +52,26 @@ router.post("/create", async (req, res) => {
 
         // connect to the contract and mint the nft
         const nftSmartContract = new ethers.Contract(utilities.CONSTANTS.NFT_ADDRESS, utilities.CONSTANTS.NFT_ABI, provider)
-        const signer = new ethers.Wallet(privateKey, provider)
+        const signer = new ethers.Wallet(process.env.DUMMY, provider)
         const signedSmartContract = nftSmartContract.connect(signer)
-        if (!res.locals.walletAddress || res.locals.walletAddress == ethers.constants.AddressZero) {
+        console.log("req.cookies.walletAddress", req.cookies.walletAddress)
+        // fetching from cookies is more reliable than fetching from locals.
+        if (!req.cookies.walletAddress || req.cookies.walletAddress == ethers.constants.AddressZero) {
             throw new Error("Wallet Address is not defined");
         }
-        const transaction = await signedSmartContract.mint(res.locals.walletAddress, nftMetadata.name, nftMetadata.image)
+        const gasPrice = await provider.getGasPrice();
+        const transaction = await signedSmartContract.mint(req.cookies.walletAddress, nftId, nftMetadata.name, nftMetadata.image, { gasPrice: gasPrice })
 
         const receipt = await transaction.wait()
-        console.log("receipt", receipt)
 
-        return receipt
+        // set cookie on the generated nft
+
+
+        // send receipt back
+        return res.json({ receipt })
     } catch (error) {
         console.error(error.message);
+        return error
     }
 })
 
