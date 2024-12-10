@@ -31,6 +31,16 @@ main {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
+  gap: 10px;
+  justify-items: center;
+  align-items: center;
+  /* padding: 3%; */
+}
+
+.main-list img {
+  height: auto;
+  width: 100%;
+  max-width: 300px;
 }
 
 #about {
@@ -67,6 +77,21 @@ main {
   text-align: center;
   box-sizing: border-box;
   box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+}
+
+.mintBtn {
+  border-radius: 20px;
+  margin: 3% auto;
+  box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+  max-height: fit-content;
+  display: block;
+  width: 60%;
+  max-width: 300px;
+  line-height: 50px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 16px;
 }
 
 .modal.visible {
