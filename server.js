@@ -10,7 +10,7 @@ const env = require("dotenv").config()
 const path = require("path");
 const app = express()
 const session = require("express-session")
-const static = require("./routes/static")
+const staticRoutes = require("./routes/static")
 const baseController = require("./controllers/baseController")
 const expressLayouts = require("express-ejs-layouts")
 const walletRoute = require("./routes/walletRoute")
@@ -33,7 +33,7 @@ app.use(session({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(static)
+app.use(staticRoutes)
 app.use(cookieParser());
 app.use(utilities.checkMetamask)
 
@@ -66,6 +66,9 @@ app.set("layout", "layouts/layout") // not at views root
 /* ***********************
  * Log statement to confirm server operation
  *************************/
+console.log(typeof app.listen); // Should be "function"
+console.log(port, host);        // Ensure port and host are defined
+module.exports = app;
 app.listen(port, () => {
   console.log(`app listening on ${host}:${port}`)
 })
