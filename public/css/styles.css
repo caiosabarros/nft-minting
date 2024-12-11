@@ -311,4 +311,16 @@ footer {
   color: white;
 }
 
-/* TODO: add media query for 455px and smaller specifically for mintBtn*/
+@media (max-width: 600px) {
+  header {
+    padding-bottom: 0;
+  }
+
+  #home {
+    grid-template-rows: 1fr 300px 1fr;
+  }
+
+  /* .mintBtn {
+    margin: 10% 50% 0 50%; 
+  } */
+}
