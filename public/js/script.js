@@ -62,7 +62,7 @@ function initializeModalEvents(modal) {
 }
 
 const img = document.querySelector(".main-list img")
-function handleData(data) {
+function handleImage(data) {
     // change the src attribute to be the random image fetched from the API call
     img.setAttribute("src", data.url)
 }
@@ -72,7 +72,7 @@ setInterval(() => {
     fetch(apiURL)
         .then(res => res.json())
         .then(data => {
-            handleData(data);
+            handleImage(data);
         })
 }, 4000);
 

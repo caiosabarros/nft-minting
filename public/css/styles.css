@@ -236,6 +236,7 @@ main {
 
 .modal.visible {
   display: block;
+  border-radius: 10px 10px 10px 10px;
 }
 
 .modal__header {
@@ -246,6 +247,11 @@ main {
   position: relative;
   height: 50px;
   box-sizing: border-box;
+  border-radius: 10px 10px 0 0;
+}
+
+.js-close-modal {
+  border-radius: 0 10px 0 0;
 }
 
 .modal__header a {
@@ -311,16 +317,39 @@ footer {
   color: white;
 }
 
+#wallet-connect {
+  margin: auto;
+  overflow: hidden;
+  display: inline-block;
+  font-size: 1.2em;
+}
+
 @media (max-width: 600px) {
   header {
     padding-bottom: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+  }
+
+  /* align with #wallet-connect */
+  header a {
+    font-size: 4vw;
+    padding: 5px 10px;
   }
 
   #home {
     grid-template-rows: 1fr 300px 1fr;
   }
 
-  /* .mintBtn {
-    margin: 10% 50% 0 50%; 
-  } */
+  #wallet-connect {
+    font-size: 4vw;
+    padding: 5px 10px;
+    white-space: normal;
+    word-break: break-all;
+    overflow-wrap: break-word;
+  }
+
 }

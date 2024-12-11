@@ -68,9 +68,13 @@ app.set("layout", "layouts/layout") // not at views root
  *************************/
 module.exports = app;
 
+let port = 0
 if (process.env.NODE_ENV !== "development") {
-  const port = process.env.PORT || 3000;
-  app.listen(port, () => {
-    console.log(`app listening on localhost:${port}`);
-  });
+  port = process.env.PORT || 3000;
+} else {
+  port = process.env.PORT || 3000;
 }
+
+app.listen(port, () => {
+  console.log(`app listening on localhost:${port}`);
+});

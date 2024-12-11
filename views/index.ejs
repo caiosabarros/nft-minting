@@ -87,8 +87,7 @@
                                         // update html
                                         connectWalletButton.textContent = result.walletAddress
                                         connectWalletButton.style.border = '3px solid black'
-                                        // connectWalletButton.style.borderRadius = '20%'
-                                        // connectWalletButton.style.padding = '1%'
+                                        createWalletButton.remove()
                                     }
                                 } else if (!hasWallet && !status.account) { // create
                                     await createWallet()
@@ -97,12 +96,20 @@
                                     connectWalletButton.style.border = '3px solid black'
                                 }
                             } catch (err) {
-                                console.error('Failed connecting wallet ' + err)
+                                console.error('Failed connecting wallet: ' + err)
                             }
                         }
 
+                        function sleep(ms) {
+                            return new Promise(resolve => setTimeout(resolve, ms));
+                        }
+
                         async function createWallet() {
-                            connectWalletButton.textContent = 'Creating Random Wallet'
+                            connectWalletButton.textContent = 'Creating Random Wallet...'
+                            createWalletButton.remove()
+
+                            await sleep(5000); // wait 5s for design purposes
+
                             // handle case where the person doesn't have Metamask installed
                             const response = await fetch("/wallet/create", {
                                 method: 'POST'
@@ -117,7 +124,6 @@
                                 // update html
                                 connectWalletButton.textContent = result.walletAddress
                                 connectWalletButton.style.border = '3px solid black'
-                                // create modal saying this is the user's wallet ...
                             }
                         }
                     </script>
