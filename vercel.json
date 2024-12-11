@@ -1,10 +1,45 @@
 {
   "version": 2,
   "builds": [
-    { "src": "server.js", "use": "@vercel/node" }
+    {
+      "src": "server.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "public/css/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "public/images/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "public/js/**",
+      "use": "@vercel/static"
+    }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "server.js" }
+    {
+      "src": "/css/(.*)",
+      "headers": {
+        "Content-Type": "text/css"
+      }
+    },
+    {
+      "src": "/images/(.*)",
+      "headers": {
+        "Content-Type": "image/*"
+      }
+    },
+    {
+      "src": "/js/(.*)",
+      "headers": {
+        "Content-Type": "application/javascript"
+      }
+    },
+    {
+      "src": "/(.*)",
+      "dest": "server.js"
+    }
   ]
 }
-
