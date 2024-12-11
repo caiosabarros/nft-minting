@@ -75,3 +75,5 @@ setInterval(() => {
             handleData(data);
         })
 }, 4000);
+
+console.log("WORKING")

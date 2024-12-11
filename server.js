@@ -54,8 +54,8 @@ app.use("/nft", nftRoute)
  * Local Server Information
  * Values from .env (environment) file
  *************************/
-const port = process.env.PORT
-const host = process.env.HOST
+// const port = process.env.PORT
+// const host = process.env.HOST
 
 // Set the views directory and template engine
 app.set("view engine", "ejs"); // Set EJS as the default template engine
@@ -66,9 +66,11 @@ app.set("layout", "layouts/layout") // not at views root
 /* ***********************
  * Log statement to confirm server operation
  *************************/
-console.log(typeof app.listen); // Should be "function"
-console.log(port, host);        // Ensure port and host are defined
 module.exports = app;
-app.listen(port, () => {
-  console.log(`app listening on ${host}:${port}`)
-})
+
+if (process.env.NODE_ENV !== "development") {
+  const port = process.env.PORT || 3000;
+  app.listen(port, () => {
+    console.log(`app listening on localhost:${port}`);
+  });
+}
