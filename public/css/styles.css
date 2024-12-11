@@ -5,16 +5,78 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: cadetblue;
+}
+
 header {
   display: flex;
   justify-content: space-between;
-  background-color: red;
+  background-color: bisque;
+  border-radius: 10px 10px 0 0;
+  padding-bottom: 20px;
+}
+
+header a {
+  background-color: #333;
+  text-decoration: none;
+  color: white;
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 10px 15px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  border-radius: 10px;
+}
+
+header a:hover {
+  background-color: #555;
+  transform: scale(1.1);
+}
+
+header a:active {
+  background-color: #777;
+}
+
+.wallet {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 0 5px 0 0;
+}
+
+header h1 {
+  margin: 30px 0 0 20px;
+  font-weight: bold;
 }
 
 nav {
-  background-color: yellow;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 30px;
+  background-color: #333;
+  padding: 15px 20px;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 10px 15px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  border-radius: 5px;
+}
+
+nav a:hover {
+  background-color: #555;
+  transform: scale(1.1);
+}
+
+nav a:active {
+  background-color: #777;
 }
 
 main {
@@ -22,19 +84,19 @@ main {
 }
 
 #home {
-  height: 95vh;
+  height: auto;
+  min-height: 100vh;
   display: grid;
-  grid-template-rows: 1fr 2fr 1fr;
+  grid-template-rows: 1fr 350px 1fr;
 }
 
 .main-list {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr;
+  grid-template-rows: 0.5fr;
   gap: 10px;
   justify-items: center;
   align-items: center;
-  /* padding: 3%; */
 }
 
 .main-list img {
@@ -42,6 +104,29 @@ main {
   width: 100%;
   max-width: 300px;
 }
+
+.features ul {
+  list-style: none;
+  padding: 0;
+}
+
+.features li {
+  position: relative;
+  margin: 10px 0;
+  padding-left: 40px;
+  font-size: 1.2em;
+}
+
+.features li:before {
+  content: '⭐';
+  position: absolute;
+  left: 0;
+  color: gold;
+  font-size: 1.5em;
+  line-height: 1;
+}
+
+/**/
 
 #about {
   height: 95vh;
@@ -55,14 +140,14 @@ main {
   grid-template-rows: 1fr;
 }
 
-.wallet {
-  margin: 20px 30px 60px 0;
-  background-color: green;
-}
-
 #welcome {
   text-align: center;
-  border: 5px solid black;
+  /* border: 5px solid black; */
+  border-radius: 5px;
+  padding: 5px;
+  background-color: #333;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  color: white;
 }
 
 .modal {
@@ -71,7 +156,7 @@ main {
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #fff;
+  background-color: #fff;
   width: 320px;
   height: auto;
   text-align: center;
@@ -92,6 +177,12 @@ main {
   white-space: nowrap;
   overflow: hidden;
   font-size: 16px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mintBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
 }
 
 .modal.visible {
@@ -100,7 +191,7 @@ main {
 
 .modal__header {
   color: white;
-  background: #333;
+  background-color: #333;
   line-height: 50px;
   text-align: center;
   position: relative;
@@ -118,6 +209,29 @@ main {
   display: block;
   padding: 0 20px;
   font-size: 16px;
-  background: #555;
+  background-color: #555;
   height: 100%;
 }
+
+.inner-grid {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+}
+
+.inner-grid h1 {
+  grid-column: 1/3;
+  grid-row: 1/2;
+}
+
+.inner-grid h2 {
+  background-color: #333;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+
+}
+
+/* TODO: add media query for 455px and smaller specifically for mintBtn*/

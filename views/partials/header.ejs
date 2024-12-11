@@ -1,10 +1,11 @@
 <header id="top-header">
-    <h1>R4ND0M NFT Minting App</h1>
+    <h1>Random NFT Minting App</h1>
     <div class="wallet">
         <% if (locals.walletConnected) { %>
             <a title="Welcome" href="/account/">Welcome <%= locals.walletAddress %></a>
-            <% } else { %> <a id="wallet-connect" href="#" title="Click to connect your wallet">Connect Wallet | No
-                    Wallet</a>
+            <% } else { %>
+                <a id="wallet-connect" href="#" title="Click to connect your wallet">Connect Wallet</a>
+                <a id="no-wallet" href="#" title="Create a random wallet automatically">No Wallet?</a>
                 <% } %>
 
     </div>
